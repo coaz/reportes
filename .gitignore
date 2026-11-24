@@ -1,0 +1,15 @@
+composer.lock
+*.swp
+.env
+*.sql
+*.sql.gz
+
+# Proyectos de clientes: no se publican (solo admin y tutorials)
+/projects/*
+!/projects/admin/
+!/projects/tutorials/
+
+# Configuración de cualquier proyecto (credenciales), incluidos los nuevos
+/projects/*/config.php
+*.bak
+*.old
