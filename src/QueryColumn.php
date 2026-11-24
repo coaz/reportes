@@ -9,6 +9,7 @@ namespace Reportico\Engine;
  * about a data column that mus tbe retrieved from the database
  * or calculated during report execution.
  */
+#[\AllowDynamicProperties]
 class QueryColumn extends ReporticoObject
 {
     public $query_name;
@@ -51,7 +52,7 @@ class QueryColumn extends ReporticoObject
     public $avgsum = 0;
     public $median = false;
     public $value_list = array();
-    public $output_cell_styles = false;
+    public $output_cell_styles = [];
     public $output_hyperlinks = false;
     public $output_images = false;
 

@@ -13,6 +13,7 @@ namespace Reportico\Engine;
 
 use \Reportico\Engine\ReporticoSession;
 
+#[\AllowDynamicProperties]
 class AuthenticatorStandalone extends Authenticator
 {
     public function __construct($engine)

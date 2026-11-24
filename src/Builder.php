@@ -17,6 +17,7 @@ function reporticoPipe($value) {
 $old_error_handler = set_error_handler("Reportico\Engine\ReporticoApp::ErrorHandler");
 
 
+#[\AllowDynamicProperties]
 class Builder extends ReporticoObject implements \ArrayAccess, \Iterator, \Serializable
 {
     public $value;
@@ -480,6 +481,7 @@ class Builder extends ReporticoObject implements \ArrayAccess, \Iterator, \Seria
         return $this;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value) {
         if (is_null($offset)) {
             $this->value[] = $value;
@@ -488,34 +490,42 @@ class Builder extends ReporticoObject implements \ArrayAccess, \Iterator, \Seria
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset) {
         return isset($this->value[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset) {
         unset($this->value[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset) {
         return isset($this->value[$offset]) ? $this->value[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function rewind() {
         $this->position = 0;
     }
     
+    #[\ReturnTypeWillChange]
     public function current() {
         return $this->value[$this->position];
     }
     
+    #[\ReturnTypeWillChange]
     public function key() {
         return $this->position;
     }
     
+    #[\ReturnTypeWillChange]
     public function next() {
         ++$this->position;
     }
     
+    #[\ReturnTypeWillChange]
     public function valid() {
         return isset($this->value[$this->position]);
     }
@@ -526,5 +536,14 @@ class Builder extends ReporticoObject implements \ArrayAccess, \Iterator, \Seria
     
     public function unserialize($value) {
         $this->value = unserialize($value);
+    }
+
+    // PHP 8.1+: reemplazo de la interfaz Serializable (mismo contenido serializado)
+    public function __serialize(): array {
+        return ["value" => $this->value];
+    }
+
+    public function __unserialize(array $data): void {
+        $this->value = isset($data["value"]) ? $data["value"] : null;
     }
 }

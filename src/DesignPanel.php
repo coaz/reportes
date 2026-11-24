@@ -28,6 +28,7 @@ namespace Reportico\Engine;
  * displayed through the browser when running Reportico
  *
  */
+#[\AllowDynamicProperties]
 class DesignPanel
 {
     public $panel_type;

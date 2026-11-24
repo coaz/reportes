@@ -18,6 +18,7 @@ namespace Reportico\Engine;
 
 use JonnyW\PhantomJs\Client;
 
+#[\AllowDynamicProperties]
 class ReportPhantomJSPDF extends Report
 {
     private $client = false;
@@ -64,7 +65,7 @@ class ReportPhantomJSPDF extends Report
             if ( substr($script_url, 0, 1) != "/" )
                 $script_url = "/$script_url";
 
-            $url = "${_SERVER["REQUEST_SCHEME"]}://${_SERVER["HTTP_HOST"]}{$script_url}?execute_mode=EXECUTE&target_format=HTML2PDF&reportico_session_name=" . $sessionClass::reporticoSessionName();
+            $url = "{$_SERVER["REQUEST_SCHEME"]}://{$_SERVER["HTTP_HOST"]}{$script_url}?execute_mode=EXECUTE&target_format=HTML2PDF&reportico_session_name=" . $sessionClass::reporticoSessionName();
         }
 
         // Add in any extra forwarded URL parameters

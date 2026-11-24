@@ -20,6 +20,7 @@ use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 use Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class Criteria extends Widget
 {
     public $rawvalue = false;
@@ -144,6 +145,9 @@ $criteria
         $sections["selection"] = $this->engineCriteria->renderSelection();
 
         $tabgroup = $this->engineCriteria->display_group;
+        if (!$tabgroup) {
+            $tabgroup = "";
+        }
         $openfilters = preg_replace("/ /", "_", $sessionClass::getReporticoSessionParam("openfilters"));
         $closedfilters = $sessionClass::getReporticoSessionParam("closedfilters");
 

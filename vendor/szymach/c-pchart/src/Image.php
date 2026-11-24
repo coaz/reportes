@@ -27,7 +27,7 @@ class Image extends Draw
     public function __construct(
         $XSize,
         $YSize,
-        Data $DataSet = null,
+        ?Data $DataSet = null,
         $TransparentBackground = false
     ) {
         parent::__construct();

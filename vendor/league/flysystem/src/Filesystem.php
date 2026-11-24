@@ -359,7 +359,7 @@ class Filesystem implements FilesystemInterface
     /**
      * @inheritdoc
      */
-    public function get($path, Handler $handler = null)
+    public function get($path, ?Handler $handler = null)
     {
         $path = Util::normalizePath($path);
 

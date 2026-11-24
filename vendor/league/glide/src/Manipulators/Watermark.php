@@ -37,7 +37,7 @@ class Watermark extends BaseManipulator
      * Create Watermark instance.
      * @param FilesystemInterface $watermarks The watermarks file system.
      */
-    public function __construct(FilesystemInterface $watermarks = null, $watermarksPathPrefix = '')
+    public function __construct(?FilesystemInterface $watermarks = null, $watermarksPathPrefix = '')
     {
         $this->setWatermarks($watermarks);
         $this->setWatermarksPathPrefix($watermarksPathPrefix);
@@ -47,7 +47,7 @@ class Watermark extends BaseManipulator
      * Set the watermarks file system.
      * @param FilesystemInterface $watermarks The watermarks file system.
      */
-    public function setWatermarks(FilesystemInterface $watermarks = null)
+    public function setWatermarks(?FilesystemInterface $watermarks = null)
     {
         $this->watermarks = $watermarks;
     }

@@ -34,6 +34,7 @@ namespace Reportico\Engine;
  * @version $Id: swoutput.php,v 1.33 2014/05/17 15:12:31 peter Exp $
  */
 
+#[\AllowDynamicProperties]
 class DataSourceElastic
 {
     public $EOF = false;

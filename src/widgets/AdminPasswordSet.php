@@ -20,6 +20,7 @@ use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class AdminPasswordSet extends Widget
 {
     public $rawvalue = false;

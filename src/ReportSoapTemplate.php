@@ -16,6 +16,7 @@
  */
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class ReportSoapTemplate extends Report
 {
 

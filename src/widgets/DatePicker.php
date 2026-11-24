@@ -19,6 +19,7 @@ use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class DatePicker extends Widget
 {
     public $rawvalue = false;
@@ -49,7 +50,7 @@ class DatePicker extends Widget
 
     public function getConfig() {
 
-        $format = strtoupper(ReporticoApp::getConfig("prep_dateformat"));
+        $format = strtoupper((string) ReporticoApp::getConfig("prep_dateformat"));
         $format = preg_replace("/Y/i", "YYYY", $format);
         $format = preg_replace("/M/i", "MM", $format);
         $format = preg_replace("/D/i", "DD", $format);
@@ -335,7 +336,7 @@ reportico_jquery(\'.reportico-date-field\').daterangepicker({
 
         $this->deriveValue();
 
-        $format = strtoupper(ReporticoApp::getConfig("prep_dateformat"));
+        $format = strtoupper((string) ReporticoApp::getConfig("prep_dateformat"));
         $format = preg_replace("/Y/i", "YYYY", $format);
         $format = preg_replace("/M/i", "MM", $format);
         $format = preg_replace("/D/i", "DD", $format);

@@ -17,6 +17,7 @@
 
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class Report extends ReporticoObject
 {
     public $query_set = array();
@@ -264,16 +265,16 @@ class Report extends ReporticoObject
     // For each line reset styles to default values
     public function setDefaultStyles()
     {
-        $this->query->output_allcell_styles = false;
-        $this->query->output_row_styles = false;
-        $this->query->output_before_form_row_styles = false;
-        $this->query->output_after_form_row_styles = false;
-        $this->query->output_page_styles = false;
-        $this->query->output_header_styles = false;
-        $this->query->output_reportbody_styles = false;
-        $this->query->output_group_header_label_styles = false;
-        $this->query->output_group_header_value_styles = false;
-        $this->query->output_group_trailer_styles = false;
+        $this->query->output_allcell_styles = [];
+        $this->query->output_row_styles = [];
+        $this->query->output_before_form_row_styles = [];
+        $this->query->output_after_form_row_styles = [];
+        $this->query->output_page_styles = [];
+        $this->query->output_header_styles = [];
+        $this->query->output_reportbody_styles = [];
+        $this->query->output_group_header_label_styles = [];
+        $this->query->output_group_header_value_styles = [];
+        $this->query->output_group_trailer_styles = [];
         $this->query->output_hyperlinks = false;
         $this->query->output_images = false;
     }

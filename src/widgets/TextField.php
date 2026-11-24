@@ -18,6 +18,7 @@ namespace Reportico\Widgets;
 use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 
+#[\AllowDynamicProperties]
 class TextField extends Widget
 {
     public $value = false;

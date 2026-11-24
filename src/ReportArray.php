@@ -16,6 +16,7 @@
  */
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class ReportArray extends Report
 {
     public $record_template;

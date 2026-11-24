@@ -40,6 +40,7 @@ require_once 'swutil.php';
  * everything necessary such as titles, axis formatting,
  * graph type, colours etc
  */
+#[\AllowDynamicProperties]
 class reportico_graph
 {
     public $calling_mode = "INTERNAL";

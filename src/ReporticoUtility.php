@@ -5,6 +5,7 @@ namespace Reportico\Engine;
 global $gLastTrace;
 $gLastTrace = false;
 
+#[\AllowDynamicProperties]
 class ReporticoUtility
 {
     static function getQueryColumnValue($name, &$arr)

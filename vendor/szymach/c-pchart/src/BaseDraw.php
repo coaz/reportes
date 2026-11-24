@@ -9,6 +9,7 @@ use Exception;
  * in the Draw class. Basically all methods not named 'drawX' were moved in here,
  * as well as all the class fields.
  */
+#[\AllowDynamicProperties]
 abstract class BaseDraw
 {
     /**
@@ -285,7 +286,8 @@ abstract class BaseDraw
         }
 
         $Alpha = $this->convertAlpha($Alpha);
-        return imagecolorallocatealpha($Picture, $R, $G, $B, $Alpha);
+        // PHP 8.1+: GD espera enteros (antes PHP truncaba los decimales en silencio)
+        return imagecolorallocatealpha($Picture, (int) $R, (int) $G, (int) $B, (int) $Alpha);
     }
 
     /**
@@ -507,7 +509,7 @@ abstract class BaseDraw
             return 0;
         }
         if (floor($Value2) != 0) {
-            return $Value1 % $Value2;
+            return (int) $Value1 % (int) $Value2;
         }
 
         $MinValue = min($Value1, $Value2);

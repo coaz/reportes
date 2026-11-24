@@ -1,17 +1,17 @@
 [
     {
         "name": "adodb/adodb-php",
-        "version": "5.20.18",
-        "version_normalized": "5.20.18.0",
+        "version": "v5.22.10",
+        "version_normalized": "5.22.10.0",
         "source": {
             "type": "git",
             "url": "https://github.com/ADOdb/ADOdb.git",
-            "reference": "0363eca78eed8bd02d1456072c729da302655241"
+            "reference": "38ce257600e67b1e854f2e9054166569cff4bf6b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/0363eca78eed8bd02d1456072c729da302655241",
-            "reference": "0363eca78eed8bd02d1456072c729da302655241",
+            "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/38ce257600e67b1e854f2e9054166569cff4bf6b",
+            "reference": "38ce257600e67b1e854f2e9054166569cff4bf6b",
             "shasum": ""
         },
         "require": {

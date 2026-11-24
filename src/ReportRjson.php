@@ -16,6 +16,7 @@
  */
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class ReportRjson extends Report
 {
     public $graph_sessionPlaceholder = 0;
@@ -277,7 +278,7 @@ class ReportRjson extends Report
         return;
     }
 
-    public function formatGroupHeader(&$col) // HTML
+    public function formatGroupHeader(&$col, $custom = false) // HTML
 
     {
         $qn = ReporticoUtility::getQueryColumn($col->query_name, $this->query->columns);
@@ -398,7 +399,7 @@ class ReportRjson extends Report
         return;
     }
 
-    public function formatGroupTrailerEnd()
+    public function formatGroupTrailerEnd($last_trailer = false)
     {
         return;
         $this->jar[""] .= "</TR>";

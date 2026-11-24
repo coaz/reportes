@@ -7,6 +7,7 @@ namespace Reportico\Engine;
  *
  * Handles storage of page footer attributes for PDF report output.
  */
+#[\AllowDynamicProperties]
 class ReporticoPageEnd extends ReporticoObject
 {
     public $text = "";

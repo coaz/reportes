@@ -7,6 +7,7 @@ namespace Reportico\Engine;
  *
  * Base class for controlling access to Reportico functions
  */
+#[\AllowDynamicProperties]
 class Authenticator extends ReporticoObject
 {
 
@@ -90,7 +91,7 @@ class Authenticator extends ReporticoObject
     public $widgets = false;
     public $engine = false;
 
-    public $permissions = false;
+    public $permissions = [];
 
     // Flattened permissions
     private $_permissions = [];

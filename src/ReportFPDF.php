@@ -20,6 +20,7 @@ namespace Reportico\Engine;
 // -----------------------------------------------------------------------------
 // Class ReportFPDF
 // -----------------------------------------------------------------------------
+#[\AllowDynamicProperties]
 class ReportFPDF extends Report
 {
     public $abs_top_margin;

@@ -16,6 +16,7 @@ namespace Reportico\Engine;
  * COnfig variable could be constant prefixed by SW_
  * 
  */
+#[\AllowDynamicProperties]
 class ReporticoApp
 {
     const DEFAULT_INDICATOR = '.';
@@ -343,6 +344,20 @@ class ReporticoApp
     // error handler function
     static function ErrorHandler($errno, $errstr, $errfile, $errline)
     {
+        // PHP 8: los avisos de obsolescencia (E_DEPRECATED) no son errores. Antes caían en el
+        // "default" de abajo y se mostraban como "Fatal Error" en pantalla. Ahora solo se
+        // registran en el log de PHP para poder corregirlos sin interrumpir los reportes.
+        if ($errno == E_DEPRECATED || $errno == E_USER_DEPRECATED) {
+            // Una sola línea por archivo y línea en cada petición, para no llenar el log
+            static $logged_deprecations = [];
+            $key = $errfile . ":" . $errline;
+            if (!isset($logged_deprecations[$key])) {
+                $logged_deprecations[$key] = true;
+                error_log("Reportico [Deprecated] $errstr in $errfile on line $errline");
+            }
+            return true;
+        }
+
         switch ($errno) {
             case E_ERROR:
                 $errtype = ReporticoLang::translate("Error");

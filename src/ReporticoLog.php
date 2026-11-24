@@ -6,6 +6,7 @@ use Monolog\Handler\BrowserConsoleHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
+#[\AllowDynamicProperties]
 class ReporticoLog
 {
 

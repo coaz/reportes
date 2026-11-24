@@ -19,6 +19,7 @@ use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoLang;
 use Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class CriteriaListRadio extends CriteriaList
 {
     public $value = false;

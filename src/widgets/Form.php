@@ -20,6 +20,7 @@ use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 use Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class Form extends Widget
 {
     public $rawvalue = false;

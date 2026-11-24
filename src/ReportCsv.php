@@ -16,6 +16,7 @@
  */
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class ReportCsv extends Report
 {
     public $abs_top_margin;

@@ -19,6 +19,7 @@ namespace Reportico\Widgets;
 use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoLang;
 
+#[\AllowDynamicProperties]
 class Core extends Widget
 {
     // Define asset manager

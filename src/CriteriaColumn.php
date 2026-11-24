@@ -11,6 +11,7 @@ namespace Reportico\Engine;
  * lists can be generated from the database when the criteria type is LOOKUP
  */
 
+#[\AllowDynamicProperties]
 class CriteriaColumn extends QueryColumn
 {
     public $defaults = array();

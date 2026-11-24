@@ -8,6 +8,7 @@ namespace Reportico\Engine;
  * Identifies a report output criteria and the associated
  * criteria  header and footers.
  */
+#[\AllowDynamicProperties]
 class ReporticoGrid extends ReporticoObject
 {
     public $usage = array(

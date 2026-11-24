@@ -19,6 +19,7 @@ use Twig\Loader;
  * COnfig variable could be constant prefixed by SW_
  *
  */
+#[\AllowDynamicProperties]
 class ReporticoTemplateTwig
 {
     private $twig = false;

@@ -525,7 +525,7 @@ class Manipulations
      *
      * @return $this
      */
-    public function watermarkPadding(int $xPadding, int $yPadding = null, string $unit = 'px')
+    public function watermarkPadding(int $xPadding, ?int $yPadding = null, string $unit = 'px')
     {
         $yPadding = $yPadding ?? $xPadding;
 

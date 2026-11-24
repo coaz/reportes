@@ -8,6 +8,7 @@ namespace Reportico\Engine;
  * Responsible for converting the current report back into XML format
  * and for saving that report XML back to disk.
  */
+#[\AllowDynamicProperties]
 class XmlWriter
 {
     public $panel_type;

@@ -47,6 +47,7 @@ else
  * everything necessary such as titles, axis formatting, 
  * graph type, colours etc
  */
+#[\AllowDynamicProperties]
 class ChartFLOT
 {
 	var $calling_mode = "INTERNAL";

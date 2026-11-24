@@ -16,6 +16,7 @@ namespace Reportico\Engine;
  * COnfig variable could be constant prefixed by SW_
  * 
  */
+#[\AllowDynamicProperties]
 class ReporticoTemplate
 {
     private function __construct()

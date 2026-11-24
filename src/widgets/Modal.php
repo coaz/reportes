@@ -19,6 +19,7 @@ namespace Reportico\Widgets;
 use Reportico\Engine\Reportico;
 use Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class Modal extends Widget
 {
     public $rawvalue = false;

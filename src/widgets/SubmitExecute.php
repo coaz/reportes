@@ -21,6 +21,7 @@ use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoUtility;
 use \Reportico\Engine\ReporticoSession;
 
+#[\AllowDynamicProperties]
 class SubmitExecute extends Widget
 {
     public $rawvalue = false;

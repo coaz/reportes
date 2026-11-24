@@ -17,10 +17,11 @@ namespace Reportico\Widgets;
  */
 
 use \Reportico\Engine\ReporticoLocale;
+#[\AllowDynamicProperties]
 class Widget
 {
     // Define asset manager
-    public $config = false;
+    public $config = [];
     protected $engine = false;
     protected $manager = false;
     public $criteria = false;
@@ -39,6 +40,9 @@ class Widget
             if ( !$this->config || !isset($this->config["name"] )) {
 		    if ( !isset($this->config["name"] )) {
 	    //echo get_class($this)."<BR>";
+                if ( !is_array($this->config) ) {
+                    $this->config = []; // PHP 8.1+: no convertir false en array automáticamente
+                }
                 $this->config["name"] = get_class($this);
 		    }
                 $this->name = $this->config["name"];

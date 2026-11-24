@@ -137,7 +137,7 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException When proc_open is not installed
      */
-    public function __construct(array $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
+    public function __construct(array $command, ?string $cwd = null, ?array $env = null, $input = null, ?float $timeout = 60)
     {
         if (!\function_exists('proc_open')) {
             throw new LogicException('The Process class relies on proc_open, which is not available on your PHP installation.');
@@ -186,7 +186,7 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException When proc_open is not installed
      */
-    public static function fromShellCommandline(string $command, string $cwd = null, array $env = null, $input = null, ?float $timeout = 60)
+    public static function fromShellCommandline(string $command, ?string $cwd = null, ?array $env = null, $input = null, ?float $timeout = 60)
     {
         $process = new static([], $cwd, $env, $input, $timeout);
         $process->commandline = $command;
@@ -227,7 +227,7 @@ class Process implements \IteratorAggregate
      *
      * @final
      */
-    public function run(callable $callback = null, array $env = []): int
+    public function run(?callable $callback = null, array $env = []): int
     {
         $this->start($callback, $env);
 
@@ -246,7 +246,7 @@ class Process implements \IteratorAggregate
      *
      * @final
      */
-    public function mustRun(callable $callback = null, array $env = []): self
+    public function mustRun(?callable $callback = null, array $env = []): self
     {
         if (0 !== $this->run($callback, $env)) {
             throw new ProcessFailedException($this);
@@ -274,7 +274,7 @@ class Process implements \IteratorAggregate
      * @throws RuntimeException When process is already running
      * @throws LogicException   In case a callback is provided and output has been disabled
      */
-    public function start(callable $callback = null, array $env = [])
+    public function start(?callable $callback = null, array $env = [])
     {
         if ($this->isRunning()) {
             throw new RuntimeException('Process is already running.');
@@ -368,7 +368,7 @@ class Process implements \IteratorAggregate
      *
      * @final
      */
-    public function restart(callable $callback = null, array $env = []): self
+    public function restart(?callable $callback = null, array $env = []): self
     {
         if ($this->isRunning()) {
             throw new RuntimeException('Process is already running.');
@@ -395,7 +395,7 @@ class Process implements \IteratorAggregate
      * @throws ProcessSignaledException When process stopped after receiving signal
      * @throws LogicException           When process is not yet started
      */
-    public function wait(callable $callback = null)
+    public function wait(?callable $callback = null)
     {
         $this->requireProcessIsStarted(__FUNCTION__);
 
@@ -605,6 +605,7 @@ class Process implements \IteratorAggregate
      *
      * @return \Generator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator(int $flags = 0)
     {
         $this->readPipesForOutput(__FUNCTION__, false);
@@ -896,7 +897,7 @@ class Process implements \IteratorAggregate
      *
      * @return int|null The exit-code of the process or null if it's not running
      */
-    public function stop(float $timeout = 10, int $signal = null)
+    public function stop(float $timeout = 10, ?int $signal = null)
     {
         $timeoutMicro = microtime(true) + $timeout;
         if ($this->isRunning()) {
@@ -1281,7 +1282,7 @@ class Process implements \IteratorAggregate
      *
      * @return \Closure A PHP closure
      */
-    protected function buildCallback(callable $callback = null)
+    protected function buildCallback(?callable $callback = null)
     {
         if ($this->outputDisabled) {
             return function ($type, $data) use ($callback): bool {

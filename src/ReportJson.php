@@ -16,6 +16,7 @@
  */
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class ReportJson extends Report
 {
     public $record_template;
@@ -29,9 +30,9 @@ class ReportJson extends Report
         $this->column_spacing = "2%";
     }
 
-    public function start()
+    public function start($engine = false)
     {
-        Report::start();
+        Report::start($engine);
         $title = $this->reporttitle;
         $this->results = array(
             "title" => $title,

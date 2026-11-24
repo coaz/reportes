@@ -19,6 +19,7 @@ use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class TimeRangePicker extends Widget
 {
     public $rawvalue = false;
@@ -64,7 +65,7 @@ class TimeRangePicker extends Widget
 
     public function getConfig() {
 
-        $format = strtoupper(ReporticoApp::getConfig("prep_timeformat"));
+        $format = strtoupper((string) ReporticoApp::getConfig("prep_timeformat"));
         $format = preg_replace("/Y/i", "YYYY", $format);
         $format = preg_replace("/M/i", "MM", $format);
         $format = preg_replace("/D/i", "DD", $format);

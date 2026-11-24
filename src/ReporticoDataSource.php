@@ -28,6 +28,7 @@ use \PDO;
  *
  * Core interface for database retrieval
  */
+#[\AllowDynamicProperties]
 class ReporticoDataSource extends ReporticoObject
 {
 
@@ -891,6 +892,14 @@ class ReporticoDataSource extends ReporticoObject
                     $connected = $this->ado_connection->Connect($this->_conn_host_name,
                         $this->_conn_user_name, $this->_conn_password, $this->_conn_database);
                 }
+        }
+
+        // PHP 8.0+: PDO lanza excepciones por defecto (ERRMODE_EXCEPTION). Reportico espera el
+        // comportamiento de PHP 7 (la consulta devuelve false y el error se muestra en pantalla),
+        // así que se vuelve a dejar PDO en modo silencioso.
+        if ($this->ado_connection && isset($this->ado_connection->_connectionID)
+            && $this->ado_connection->_connectionID instanceof \PDO) {
+            $this->ado_connection->_connectionID->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
         }
 
         // Note force connected for SQLite3

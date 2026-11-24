@@ -8,6 +8,7 @@ namespace Reportico\Engine;
  * Identifies instructions for report column output
  * that must be calculated upon report execution.
  */
+#[\AllowDynamicProperties]
 class Assignment extends ReporticoObject
 {
     public $query_name;

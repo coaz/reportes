@@ -23,6 +23,7 @@ namespace Reportico\Engine;
  * report design mode and imports them into
  * the Reportico engine
  */
+#[\AllowDynamicProperties]
 class SqlParser
 {
 

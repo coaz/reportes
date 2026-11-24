@@ -18,6 +18,7 @@ use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoLang;
 
+#[\AllowDynamicProperties]
 class CriteriaLookupDropdown extends CriteriaLookup
 {
     public $value = false;

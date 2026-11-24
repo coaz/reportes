@@ -19,6 +19,7 @@ use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoLang;
 
+#[\AllowDynamicProperties]
 class CriteriaList extends Widget
 {
     public $value = false;

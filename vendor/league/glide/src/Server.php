@@ -398,7 +398,7 @@ class Server
      * Set response factory.
      * @param ResponseFactoryInterface|null $responseFactory Response factory.
      */
-    public function setResponseFactory(ResponseFactoryInterface $responseFactory = null)
+    public function setResponseFactory(?ResponseFactoryInterface $responseFactory = null)
     {
         $this->responseFactory = $responseFactory;
     }

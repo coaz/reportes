@@ -21,6 +21,7 @@ use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoUtility;
 use \Reportico\Engine\Authenticator;
 
+#[\AllowDynamicProperties]
 class AdminLogin extends Widget
 {
     public $rawvalue = false;

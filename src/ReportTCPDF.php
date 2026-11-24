@@ -16,6 +16,7 @@
  */
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class ReportTCPDF extends Report
 {
     public $dbg = false;
@@ -131,9 +132,9 @@ class ReportTCPDF extends Report
     public $top_page_reportbody_styles = false;
     public $mid_page_reportbody_styles = false;
     public $bottom_page_reportbody_styles = false;
-    public $all_page_row_styles = false;
+    public $all_page_row_styles = [];
     public $mid_cell_row_styles = false;
-    public $all_page_criteria_styles = false;
+    public $all_page_criteria_styles = [];
 
     public $debugFp = false;
     public $page_detail_started = false;
@@ -847,7 +848,7 @@ class ReportTCPDF extends Report
     public function absMetric($value, $type = "width")
     {
         //if ( preg_match("/(\d*\.*(\d+)(\D*)/", $height_string, $match) )
-        if (preg_match("/(\d+)(\D*)/", $value, $match)) {
+        if (preg_match("/(\d+)(\D*)/", $value === null ? "" : $value, $match)) {
             $number = $match[1];
             if (isset($match[2])) {
                 switch ($match[2]) {
@@ -2007,7 +2008,7 @@ class ReportTCPDF extends Report
 
     public function fetchCellStyles(&$tx)
     {
-        $styles = false;
+        $styles = [];
         $matches = array();
         if (preg_match("/{STYLE[ ,]*([^}].*)}/", $tx, $matches)) {
             if (isset($matches[1])) {
@@ -3234,7 +3235,7 @@ class ReportTCPDF extends Report
         $this->newReportPageLineByStyle("LINEPAGE$txt", $this->mid_page_page_styles, false);
     }
 
-    public function newReportPageLineByStyle($txt = "", &$styles, $blankline = false)
+    public function newReportPageLineByStyle($txt, &$styles, $blankline = false)
     {
         // Line page wrapper
         $this->applyStyleTags("$txt", $styles);

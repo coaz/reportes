@@ -4130,6 +4130,7 @@ class TCPDF {
 	 * @since 5.9.000 (2010-09-28)
 	 */
 	public function getRawCharWidth($char) {
+		$char = (int) $char; // PHP 8.1+: una clave float en un array está deprecada (antes se truncaba igual)
 		if ($char == 173) {
 			// SHY character will not be printed
 			return (0);

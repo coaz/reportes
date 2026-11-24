@@ -18,6 +18,7 @@ namespace Reportico\Widgets;
 use Reportico\Engine\Reportico;
 use Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class DynamicGrid extends Widget
 {
     public $rawvalue = false;

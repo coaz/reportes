@@ -43,6 +43,7 @@ if (function_exists("imagecreatefromstring")) {
  * everything necessary such as titles, axis formatting,
  * graph type, colours etc
  */
+#[\AllowDynamicProperties]
 class ChartNVD3
 {
     public $calling_mode = "INTERNAL";

@@ -8,6 +8,7 @@ namespace Reportico\Engine;
  *
  * Stores the definition of a single tag within an XML report definition
  */
+#[\AllowDynamicProperties]
 class ReporticoXmlval
 {
     public $name;
@@ -26,6 +27,9 @@ class ReporticoXmlval
 
     public function &add_xmlval($name, $value = false, $attributes = false)
     {
+        if ($value === null || $value === false) {
+            $value = "";
+        }
         $element = new ReporticoXmlval($name, htmlspecialchars($value), $attributes);
         $this->elements[] = &$element;
         return $element;

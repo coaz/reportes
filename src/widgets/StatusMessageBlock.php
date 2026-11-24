@@ -19,6 +19,7 @@ use Reportico\Engine\ReporticoLang;
 use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 
+#[\AllowDynamicProperties]
 class StatusMessageBlock extends Widget
 {
     public $rawvalue = false;

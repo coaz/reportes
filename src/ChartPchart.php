@@ -41,6 +41,7 @@ if (function_exists("imagecreatefromstring")) {
  * everything necessary such as titles, axis formatting,
  * graph type, colours etc
  */
+#[\AllowDynamicProperties]
 class ChartPchart
 {
     public $calling_mode = "INTERNAL";
@@ -605,12 +606,12 @@ class ChartPchart
             $url .= "&plotlinecolor$k=" . $v["linecolor"];
         }
 
-        $scale_drawing_mode = SCALE_ADDALL_START0;
+        $scale_drawing_mode = SCALE_MODE_ADDALL_START0; // PHP 8: SCALE_ADDALL_START0 no existe en c-pchart (antes era un aviso, ahora Error)
 
         // For stacked charts fix up the Max and Min values;
         if ($stackedexists) {
-            $scale_drawing_mode = SCALE_ADDALL;
-            $scale_drawing_mode = SCALE_ADDALL_START0;
+            $scale_drawing_mode = SCALE_MODE_ADDALL;
+            $scale_drawing_mode = SCALE_MODE_ADDALL_START0;
             $scaleMin = "Unknown";
             $scaleMax = 0;
             $min = false;

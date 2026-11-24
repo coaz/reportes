@@ -10,6 +10,7 @@ namespace Reportico\Engine;
  * and fetching. This means the Reportico engine will not care if data comes
  * from a database or an array
  */
+#[\AllowDynamicProperties]
 class DataSourceArray
 {
     public $array_set;

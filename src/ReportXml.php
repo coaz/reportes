@@ -16,6 +16,7 @@
  */
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class ReportXml extends Report
 {
     public $record_template;
@@ -48,7 +49,7 @@ class ReportXml extends Report
     {
         Report::finish();
         $xmlroot = preg_replace("/\.xml$/", "", $this->query->xmloutfile);
-        $xml = $this->arrayToXML($this->results, new SimpleXMLElement('<' . $xmlroot . '/>'))->asXml();
+        $xml = $this->arrayToXML($this->results, new \SimpleXMLElement('<' . $xmlroot . '/>'))->asXml();
         $len = strlen($xml);
 
         if (ob_get_length() > 0) {
@@ -69,7 +70,7 @@ class ReportXml extends Report
 
     public function arrayToXML1($root_element_name, $ar)
     {
-        $xml = new SimpleXMLElement("<?xml version=\"1.0\"?><" . $root_element_name . "></" . $root_element_name . ">");
+        $xml = new \SimpleXMLElement("<?xml version=\"1.0\"?><" . $root_element_name . "></" . $root_element_name . ">");
         $f = create_ReporticoLang::function('$f,$c,$a', '
             		foreach($a as $k=>$v) {
                 		if(is_array($v)) {
@@ -82,7 +83,7 @@ class ReportXml extends Report
         $f($f, $xml, $ar);
         return $xml->asXML();
     }
-    public function arrayToXml(array $arr, SimpleXMLElement $xml)
+    public function arrayToXml(array $arr, \SimpleXMLElement $xml)
     {
         foreach ($arr as $k => $v) {
             if (is_array($v) && count($v) == 0) {

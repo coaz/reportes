@@ -22,6 +22,7 @@ use \Reportico\Engine\ReporticoUtility;
 use \Reportico\Engine\Authenticator;
 use \Reportico\Engine\XmlReader;
 
+#[\AllowDynamicProperties]
 class ProjectMenu extends Widget
 {
     public $rawvalue = false;

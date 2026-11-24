@@ -14,6 +14,7 @@
  * @version $Id: DatabaseEngine.php,v 1.8 2014/05/17 15:12:31 peter Exp $
  */
 
+#[\AllowDynamicProperties]
 class DatabaseEngine
 {
 	public $pdo;

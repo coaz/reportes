@@ -22,6 +22,7 @@ use Reportico\Engine\ReporticoLang;
 use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 
+#[\AllowDynamicProperties]
 class Description extends Widget
 {
     public $rawvalue = false;

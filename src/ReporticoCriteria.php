@@ -8,6 +8,7 @@ namespace Reportico\Engine;
  * Identifies a report output criteria and the associated
  * criteria  header and footers.
  */
+#[\AllowDynamicProperties]
 class ReporticoCriteria extends ReporticoObject
 {
     public $usage = array(
@@ -230,7 +231,7 @@ class ReporticoCriteria extends ReporticoObject
 
     }
 
-    public function addHeader(&$in_value_column, $in_value_custom = false, $show_in_html, $show_in_pdf)
+    public function addHeader(&$in_value_column, $in_value_custom = false, $show_in_html = false, $show_in_pdf = false)
     {
         $header = array();
         $header["CriteriaHeaderColumn"] = $in_value_column;

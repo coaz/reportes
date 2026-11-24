@@ -20,6 +20,7 @@ use Reportico\Engine\ReporticoLang;
 use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 
+#[\AllowDynamicProperties]
 class UserAccess extends Widget
 {
     public $rawvalue = false;

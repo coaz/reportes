@@ -6,6 +6,7 @@ namespace Reportico\Engine;
  *
  * Base class for other reportico classes.
  */
+#[\AllowDynamicProperties]
 class ReporticoObject
 {
 
@@ -176,9 +177,13 @@ class ReporticoObject
     // {constant,<VALUE>} - returns defined PHP constants
     public function &deriveMetaValue($to_parse)
     {
-        $parsed = $to_parse;
+        // PHP 8.1+: no pasar null a preg_match() ni devolver null donde se espera texto
+        $parsed = ($to_parse === null) ? "" : $to_parse;
         if (preg_match("/{constant,SW_PROJECT}/", $parsed)) {
             $parsed = ReporticoApp::getConfig("project");
+            if ($parsed === null) {
+                $parsed = "";
+            }
             return $parsed;
         } else
         if (preg_match("/{constant,SW_DB_DRIVER}/", $parsed)) {
@@ -198,6 +203,9 @@ class ReporticoObject
                         $parsed = ReporticoApp::getConfig("SW_DB_DRIVER");
                 }
 
+            }
+            if ($parsed === null) {
+                $parsed = "";
             }
             return $parsed;
         } else
@@ -221,6 +229,9 @@ class ReporticoObject
                 }
 
             }
+            if ($parsed === null) {
+                $parsed = "";
+            }
             return $parsed;
         } else
         if (preg_match("/{constant,.*}/", $parsed)) {
@@ -233,8 +244,17 @@ class ReporticoObject
                 $parsed = ReporticoApp::getConfig($parsed);
             }
 
+            if ($parsed === null) {
+
+                $parsed = "";
+
+            }
+
             return $parsed;
         } else {
+            if ($parsed === null) {
+                $parsed = "";
+            }
             return $parsed;
         }
 
@@ -242,7 +262,7 @@ class ReporticoObject
 
     public function &deriveAttribute($attrib_name, $default = false)
     {
-        if ($this->attributes[$attrib_name]) {
+        if (isset($this->attributes[$attrib_name]) && $this->attributes[$attrib_name]) {
             return $this->attributes[$attrib_name];
         } else {
             return $default;

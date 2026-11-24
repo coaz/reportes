@@ -36,6 +36,7 @@ include ("jpgraph/src/jpgraph_pie3d.php");
  * everything necessary such as titles, axis formatting, 
  * graph type, colours etc
  */
+#[\AllowDynamicProperties]
 class ChartJpgraph
 {
 	var $graph_column = "";

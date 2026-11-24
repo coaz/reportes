@@ -4,6 +4,7 @@ namespace Reportico\Engine;
 
 //Class to store global var
 
+#[\AllowDynamicProperties]
 class ReporticoLang
 {
     // Translate string into another language using the (ReporticoApp::get("translations")) array

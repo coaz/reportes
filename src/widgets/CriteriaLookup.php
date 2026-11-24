@@ -20,6 +20,7 @@ use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\ReporticoLang;
 use Reportico\Engine\ReporticoUtility;
 
+#[\AllowDynamicProperties]
 class CriteriaLookup extends Widget
 {
     public $value = false;

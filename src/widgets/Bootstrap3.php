@@ -16,6 +16,7 @@ namespace Reportico\Widgets;
  * @version $Id: reportico.php,v 1.68 2014/05/17 15:12:31 peter Exp $
  */
 
+#[\AllowDynamicProperties]
 class Bootstrap3 extends Widget
 {
     // Define asset manager

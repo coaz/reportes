@@ -17,6 +17,7 @@
 
 namespace Reportico\Engine;
 
+#[\AllowDynamicProperties]
 class ReportHtml2pdf extends Report
 {
     public $abs_top_margin;
@@ -28,7 +29,7 @@ class ReportHtml2pdf extends Report
     public $graph_sessionPlaceholder = 0;
     public $group_count = 0;
     public $currentTrailerRow = 0;
-    public $currentGroup = false;
+    public $currentGroup = [];
 
     public $jar = array(
         "attributes" => array(
@@ -323,7 +324,7 @@ class ReportHtml2pdf extends Report
                 $this->jar["pages"][$this->page_count]["rows"][$this->line_count+1] =
                     [ "data" => [],
                         "groupstarts" => [ &$this->jar["groups"][$groupct - 1] ],
-                        "groupends" => false
+                        "groupends" => []
                         ];
             else
                 $this->jar["pages"][$this->page_count]["rows"][$this->line_count+1]["groupstarts"][]  = &$this->jar["groups"][$groupct - 1];
@@ -346,7 +347,7 @@ class ReportHtml2pdf extends Report
             $this->currentGroup = &$this->currentGroup["parentGroup"];
         } else {
             unset($this->currentGroup);
-            $this->currentGroup = false;
+            $this->currentGroup = [];
         }
     }
 
@@ -966,7 +967,7 @@ class ReportHtml2pdf extends Report
 
     public static function fetchCellStylesStandalone(&$tx)
     {
-        $styles = false;
+        $styles = [];
         $matches = array();
         if (preg_match("/{STYLE[ ,]*([^}].*)}/", $tx, $matches)) {
             if (isset($matches[1])) {
@@ -1003,7 +1004,7 @@ class ReportHtml2pdf extends Report
     }
     public function fetchCellStyles(&$tx)
     {
-        $styles = false;
+        $styles = [];
         $matches = array();
         if (preg_match("/{STYLE[ ,]*([^}].*)}/", $tx, $matches)) {
 

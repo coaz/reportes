@@ -23,6 +23,7 @@ use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 use \Reportico\Engine\Authenticator;
 
+#[\AllowDynamicProperties]
 class Title extends Widget
 {
     public $rawvalue = false;

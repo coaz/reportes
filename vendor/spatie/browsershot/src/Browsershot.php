@@ -112,7 +112,7 @@ class Browsershot
         return $this;
     }
 
-    public function useCookies(array $cookies, string $domain = null)
+    public function useCookies(array $cookies, ?string $domain = null)
     {
         if (! count($cookies)) {
             return $this;
@@ -299,7 +299,7 @@ class Browsershot
         return $this;
     }
 
-    public function setScreenshotType(string $type, int $quality = null)
+    public function setScreenshotType(string $type, ?int $quality = null)
     {
         $this->screenshotType = $type;
 

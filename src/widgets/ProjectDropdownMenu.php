@@ -23,6 +23,7 @@ use Reportico\Engine\ReporticoLang;
 use \Reportico\Engine\ReporticoLocale;
 use \Reportico\Engine\ReporticoApp;
 
+#[\AllowDynamicProperties]
 class ProjectDropdownMenu extends Widget
 {
     public $rawvalue = false;

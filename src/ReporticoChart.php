@@ -8,10 +8,11 @@ namespace Reportico\Engine;
  * Identifies a report output chart and the associated
  * chart  header and footers.
  */
+#[\AllowDynamicProperties]
 class ReporticoChart extends ReporticoObject
 {
     public $renderer = "";
-    public $currentPlot = false;
+    public $currentPlot = [];
 
     public $usage = array(
         "description" => "Chart Builder",

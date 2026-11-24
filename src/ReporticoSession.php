@@ -6,6 +6,7 @@ namespace Reportico\Engine;
  * Class to store global var
  * 
  */
+#[\AllowDynamicProperties]
 class ReporticoSession
 {
 
