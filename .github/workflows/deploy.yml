@@ -1,0 +1,115 @@
+# Despliegue automático de reportes (Reportico).
+#
+#   push a "main" → reportes.alamotec.com.gt (producción, de inmediato)
+#
+# 1. Revisa la sintaxis de los .php que cambiaron. Si alguno falla, NO despliega.
+# 2. Entra por SSH al servidor y deja la carpeta del sitio igual a la rama.
+#    Si alguien editó archivos del repo directo en el servidor, se reemplazan por la
+#    versión de GitHub (queda el aviso en el log). Lo ignorado por .gitignore no se toca.
+#
+# Secreto requerido: REPORTES_SSH_KEY (llave privada cuya .pub está en
+# ~/.ssh/authorized_keys del usuario coaz_web).
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-reportes
+  cancel-in-progress: false
+
+env:
+  DH_HOST: reportes.alamotec.com.gt
+  DH_USER: coaz_web
+  DH_PATH: /home/coaz_web/reportes.alamotec.com.gt
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sintaxis PHP (solo archivos cambiados)
+        env:
+          ANTES: ${{ github.event.before }}
+        run: |
+          php -v | head -1
+          if [ -n "${ANTES:-}" ] && git cat-file -e "$ANTES^{commit}" 2>/dev/null; then
+            rango="$ANTES..HEAD"
+          elif git rev-parse -q --verify HEAD~1 >/dev/null; then
+            rango="HEAD~1..HEAD"
+          else
+            echo "Primer commit: no hay cambios que revisar"; exit 0
+          fi
+          echo "Revisando: $rango"
+          fail=0
+          while IFS= read -r f; do
+            [ -f "$f" ] || continue
+            php -l "$f" > /dev/null || fail=1
+          done < <(git diff --name-only --diff-filter=ACMR "$rango" -- '*.php')
+          exit $fail
+
+  deploy:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preparar SSH
+        env:
+          LLAVE: ${{ secrets.REPORTES_SSH_KEY }}
+        run: |
+          if [ -z "$LLAVE" ]; then echo "::error::Falta el secreto REPORTES_SSH_KEY"; exit 1; fi
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$LLAVE" | tr -d '\r' > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keygen -lf ~/.ssh/id_deploy
+          ssh-keyscan -H "$DH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Actualizar sitio
+        run: |
+          ssh -i ~/.ssh/id_deploy -o BatchMode=yes "$DH_USER@$DH_HOST" bash -s -- "$DH_PATH" main <<'REMOTE'
+          set -euo pipefail
+          cd "$1"
+          RAMA="$2"
+
+          # Hosting compartido: git con un solo hilo
+          git() {
+            command git -c core.preloadIndex=false -c index.threads=1 -c checkout.workers=1 \
+              -c pack.threads=1 -c grep.threads=1 -c fetch.parallel=1 "$@"
+          }
+
+          # GitHub manda: los archivos del repo que se hayan editado a mano en el servidor
+          # se reemplazan por la versión de GitHub (solo se avisa cuáles eran).
+          editados=$(git status --porcelain --untracked-files=no)
+          if [ -n "$editados" ]; then
+            echo "::warning::Archivos editados en el servidor que se reemplazan con la versión de GitHub:"
+            echo "$editados"
+          fi
+
+          antes=$(git rev-parse --short HEAD)
+          git fetch --quiet origin "$RAMA"
+
+          # Archivos que el repo deja de seguir y que su nuevo .gitignore ignora (logs, etc.):
+          # se sacan del índice antes del reset para que se queden en el disco.
+          git show "origin/$RAMA:.gitignore" > /tmp/gitignore_deploy_$$ 2>/dev/null || : > /tmp/gitignore_deploy_$$
+          git diff --name-only --diff-filter=D HEAD "origin/$RAMA" | while IFS= read -r f; do
+            if git -c core.excludesFile=/tmp/gitignore_deploy_$$ check-ignore --no-index -q "$f"; then
+              git rm --cached --quiet -- "$f" && echo "Se conserva en disco (ahora ignorado): $f"
+            fi
+          done
+          rm -f /tmp/gitignore_deploy_$$
+
+          git reset --quiet --hard "origin/$RAMA"
+          despues=$(git rev-parse --short HEAD)
+
+          echo "Desplegado en $1: $antes → $despues"
+          git log --oneline "$antes..$despues" || true
+          REMOTE
+
+      - name: Limpiar llave
+        if: always()
+        run: rm -f ~/.ssh/id_deploy
